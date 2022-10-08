@@ -15,7 +15,7 @@ IMAGES = {} # only want to load them in one time
 '''
 Initialise a global dictionary of images. This will be called exactly once in the main
 '''
-
+#nice!
 def loadImages():
     """
     Loading images for the chess set
@@ -37,7 +37,7 @@ def main():
     validMoves = gs.getValidMoves()
     moveMade = False # flag variable for when a move is made 
     loadImages() # only do this once, before the while loop 
-    print(gs.board)
+    #print(gs.board)
     isRunning = True
     sqSelected = () #no square is selected, keep track of last click of user (tuple: (row,col))
     playerClicks = [] # list of up to two elements, keep track of player clicks (Two tuples: [(6,4), (4,4)])
