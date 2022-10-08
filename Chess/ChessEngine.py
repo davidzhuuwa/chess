@@ -109,7 +109,7 @@ class GameState():
                 # Can't capture off the right side of the board
                 # Captures to the right
                 if self.board[r-1][c+1][0] == 'b': # Enemy piece to capture
-                    moves.append(Move((r,c),(r-1,c-1),self.board))
+                    moves.append(Move((r,c),(r-1,c+1),self.board))
         
         if not self.whiteToMove: # Black pawn moves        
             if self.board[r+1][c] == '--': # 1-square pawn advance
@@ -189,7 +189,24 @@ class GameState():
         self.getBishopMoves(r,c,moves)
     
     def getKingMoves(self,r,c,moves):
-        pass
+        directions = [(-1,1),(-1,0),(0,1),(0,-1),(1,1),(1,-1),(-1,-1),(1,0)]
+        enemyColour = "b" if self.whiteToMove else "w"
+        
+        for d in directions: 
+            for i in range (1,2):
+                endRow = r + d[0]*i
+                endCol = c + d[1]*i
+                if 0 <= endRow < 8 and 0 <= endCol < 8: 
+                    endPiece = self.board[endRow][endCol]
+                    if endPiece == '--': 
+                        moves.append(Move((r,c),(endRow,endCol),self.board))
+                    elif endPiece[0] == enemyColour: # enemy piece is valid 
+                        moves.append(Move((r,c),(endRow,endCol),self.board))
+                        break 
+                    else: # friendly piece is invalid 
+                        break 
+                else: # off board 
+                    break 
                 
 class Move():
     # maps keys to values 
